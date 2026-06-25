@@ -1,6 +1,6 @@
 # AlN/Epoxy RVE Geometry Generator for ANSYS FEM
 
-A Python tool that generates **random close-packed (RCP) Representative Volume Element (RVE)** geometries of AlN particles in an Epoxy matrix, exported as named multi-body **STEP files** ready for direct import into **ANSYS DesignModeler**.
+A Python tool that generates **random close-packed (RCP) Representative Volume Element (RVE)** geometries of AlN particles in an Epoxy matrix, exported as named multi-body **STEP files** ready for direct import into **ANSYS DesignModeler**/**Solidworks**.
 
 Developed for FEM-based thermal conductivity simulation of particulate polymer composites.
 
