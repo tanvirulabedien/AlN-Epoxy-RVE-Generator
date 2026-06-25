@@ -125,6 +125,53 @@ The OpenCASCADE kernel (same as used in Salome and FreeCAD) ensures watertight c
 
 ---
 
+## Reproducibility and Random Seeds
+
+### What is a Seed?
+
+A computer cannot generate truly random numbers. Instead it uses a mathematical formula that produces numbers that *look* random. The **seed is the starting number** fed into that formula — same seed always produces the same sequence of numbers, no matter who runs the code, on what computer, or at what time.
+
+```
+seed = 101  →  always generates: 0.372, 0.819, 0.203, 0.654 ...
+seed = 202  →  always generates: 0.917, 0.134, 0.756, 0.328 ...
+```
+
+### Fixed Seeds in This Code
+
+The seeds are hardcoded in the script for full reproducibility:
+
+```python
+SEEDS = {0.10: 101, 0.20: 202, 0.30: 303, 0.40: 404}
+```
+
+This means:
+- Every user who runs the code gets **identical sphere coordinates**
+- The STEP files and CSV in this repository are the **permanent citable geometry**
+- Your FEM results can be independently verified by any researcher
+
+### Generating a Different Random Packing
+
+If you want a different sphere arrangement (e.g. for ensemble averaging across multiple RVEs), simply change the seed values in the script:
+
+```python
+# Original seeds — published geometry
+SEEDS = {0.10: 101, 0.20: 202, 0.30: 303, 0.40: 404}
+
+# New seeds — different random packing, same volume fraction
+SEEDS = {0.10: 500, 0.20: 500, 0.30: 500, 0.40: 500}
+```
+
+Running the code with different seeds produces a completely different sphere arrangement at the same volume fraction. This is useful for **ensemble averaging** — generating 3 to 5 different packings per VF and averaging the FEM results to remove the influence of any single specific arrangement. This is standard practice in RVE studies.
+
+| Situation | Coordinates |
+|---|---|
+| Same user runs code twice | ✅ Identical |
+| Different user, same seed | ✅ Identical |
+| Different user, different OS | ✅ Identical |
+| User changes the seed number | ❌ Different packing, same VF |
+
+---
+
 ## Validation
 
 FEM results from this geometry can be compared against established Effective Medium Approximation (EMA) models:
